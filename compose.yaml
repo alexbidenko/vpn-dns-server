@@ -20,7 +20,7 @@ services:
       TZ: 'Europe/Moscow'
       DNSSEC: 'true'
       DNSMASQ_LISTENING: 'all'
-      FTLCONF_LOCAL_IPV4: '147.45.145.91'
+      FTLCONF_LOCAL_IPV4: '10.0.1.14'
     volumes:
       - vpn-pihole:/etc/pihole
       - vpn-pihole-dnsmasq:/etc/dnsmasq.d
