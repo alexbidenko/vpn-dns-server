@@ -30,7 +30,6 @@ services:
     image: pihole/pihole:latest
     environment:
       TZ: 'Europe/Moscow'
-      DNSSEC: 'true'
     cap_add:
       - NET_ADMIN
     ports:
