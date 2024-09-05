@@ -19,12 +19,24 @@ services:
     environment:
       TZ: 'Europe/Moscow'
       DNSSEC: 'true'
+    volumes:
+      - vpn-pihole:/etc/pihole
+      - vpn-pihole-dnsmasq:/etc/dnsmasq.d
+    networks:
+      - server
+    restart: unless-stopped
+
+  public-pihole:
+    image: pihole/pihole:latest
+    environment:
+      TZ: 'Europe/Moscow'
+      DNSSEC: 'true'
     ports:
       - "53:53/tcp"
       - "53:53/udp"
     volumes:
-      - vpn-pihole:/etc/pihole
-      - vpn-pihole-dnsmasq:/etc/dnsmasq.d
+      - public-pihole:/etc/pihole
+      - public-pihole-dnsmasq:/etc/dnsmasq.d
     networks:
       - server
     restart: unless-stopped
@@ -34,6 +46,8 @@ volumes:
   3x-ui-cert:
   vpn-pihole:
   vpn-pihole-dnsmasq:
+  public-pihole:
+  public-pihole-dnsmasq:
 
 networks:
   server:
