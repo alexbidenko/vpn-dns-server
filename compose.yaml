@@ -18,7 +18,6 @@ services:
     image: pihole/pihole:latest
     environment:
       TZ: 'Europe/Moscow'
-      DNSSEC: 'true'
       DNSMASQ_LISTENING: 'all'
     volumes:
       - vpn-pihole:/etc/pihole
