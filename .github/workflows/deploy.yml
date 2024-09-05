@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-caddy:
     runs-on: ubuntu-22.04
 
     steps:
@@ -38,6 +38,8 @@ jobs:
 
   deploy:
     runs-on: ubuntu-22.04
+
+    needs: [build-caddy]
 
     steps:
       - name: Checkout 🛎
