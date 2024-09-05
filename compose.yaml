@@ -61,9 +61,10 @@ services:
     image: adguard/dnsproxy
     networks:
       - server
-    entrypoint: sh -c "/opt/dnsproxy/dnsproxy --upstream quic://comss.dns.controld.com -l 0.0.0.0"
-    volumes:
-      - caddy-data:/data
+    ports:
+      - "2853:853/tcp"
+      - "2853:853/udp"
+    entrypoint: sh -c "/opt/dnsproxy/dnsproxy --upstream tls://comss.dns.controld.com --tls-port=853 -l 0.0.0.0"
 
   caddy:
     image: ghcr.io/alexbidenko/vpn-dns-server/caddy:latest
