@@ -62,9 +62,9 @@ services:
     networks:
       - server
     ports:
-      - "2853:853/tcp"
-      - "2853:853/udp"
-    entrypoint: sh -c "/opt/dnsproxy/dnsproxy --upstream tls://comss.dns.controld.com --tls-port=853 -l 0.0.0.0"
+      - "2053:53/tcp"
+      - "2053:53/udp"
+    entrypoint: sh -c "/opt/dnsproxy/dnsproxy --upstream tls://comss.dns.controld.com -l 0.0.0.0"
 
   caddy:
     image: ghcr.io/alexbidenko/vpn-dns-server/caddy:latest
