@@ -33,6 +33,9 @@ services:
       DNSSEC: 'true'
     cap_add:
       - NET_ADMIN
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
     volumes:
       - public-pihole:/etc/pihole
       - public-pihole-dnsmasq:/etc/dnsmasq.d
@@ -45,8 +48,6 @@ services:
     networks:
       - server
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
       - "853:853/tcp"
       - "853:853/udp"
     environment:
