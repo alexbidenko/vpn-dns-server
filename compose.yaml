@@ -19,6 +19,7 @@ services:
     environment:
       TZ: 'Europe/Moscow'
       DNSSEC: 'true'
+      DNSMASQ_LISTENING: 'all'
     volumes:
       - vpn-pihole:/etc/pihole
       - vpn-pihole-dnsmasq:/etc/dnsmasq.d
