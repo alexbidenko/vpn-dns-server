@@ -19,16 +19,13 @@ services:
     environment:
       TZ: 'Europe/Moscow'
       DNSSEC: 'true'
-      DNSMASQ_LISTENING: 'all'
-      FTLCONF_LOCAL_IPV4: '10.0.1.14'
+    ports:
+      - "53:53"
     volumes:
       - vpn-pihole:/etc/pihole
       - vpn-pihole-dnsmasq:/etc/dnsmasq.d
     networks:
       - server
-    dns:
-      - 127.0.0.1
-      - 8.8.8.8
     restart: unless-stopped
 
 volumes:
