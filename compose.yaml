@@ -41,7 +41,7 @@ services:
       - public-pihole-dnsmasq:/etc/dnsmasq.d
     networks:
       server:
-      vpcbr:
+      dns:
         ipv4_address: 10.5.0.5
     restart: unless-stopped
 
@@ -63,7 +63,7 @@ services:
     image: adguard/dnsproxy
     networks:
       server:
-      vpcbr:
+      dns:
         ipv4_address: 10.5.0.6
     entrypoint: sh -c "/opt/dnsproxy/dnsproxy --upstream tls://comss.dns.controld.com -l 0.0.0.0"
     volumes:
