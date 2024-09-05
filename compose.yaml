@@ -11,7 +11,7 @@ services:
     networks:
       - server
     ports:
-      - '30000-39999:30000-39999'
+      - '30000-39999'
     restart: unless-stopped
 
   vpn-pihole:
