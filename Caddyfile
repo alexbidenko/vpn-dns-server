@@ -1,0 +1,7 @@
+{
+  email alexbidenko1998@gmail.com
+}
+
+public.dns.ab.tw1.su {
+  respond "OK"
+}
