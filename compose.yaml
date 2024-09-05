@@ -8,10 +8,9 @@ services:
     volumes:
       - 3x-ui-db:/etc/x-ui/
       - 3x-ui-cert:/root/cert/
-    ports:
-      - "10000-59999:10000-59999"
     networks:
       - server
+    network_mode: host
     restart: unless-stopped
 
 volumes:
