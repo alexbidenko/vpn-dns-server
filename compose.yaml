@@ -53,7 +53,7 @@ services:
     environment:
       - VIRTUAL_HOST=public.dns.ab.tw1.su
       - LETSENCRYPT_HOST=public.dns.ab.tw1.su
-    entrypoint: sh -c "/opt/dnsproxy/dnsproxy -b $$(getent hosts public-pihole | awk '{ print $$1 }') --upstream $$(getent hosts public-pihole | awk '{ print $$1 }') --tls-port=853 --tls-crt=/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/public.dns.ab.tw1.su/public.dns.ab.tw1.su.crt --tls-key=/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/public.dns.ab.tw1.su/public.dns.ab.tw1.su.key -l 0.0.0.0"
+    entrypoint: sh -c "/opt/dnsproxy/dnsproxy -b 8.8.8.8:53 --upstream 8.8.8.8:53 --tls-port=853 --tls-crt=/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/public.dns.ab.tw1.su/public.dns.ab.tw1.su.crt --tls-key=/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/public.dns.ab.tw1.su/public.dns.ab.tw1.su.key -l 0.0.0.0"
     volumes:
       - caddy-data:/data
 
