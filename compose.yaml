@@ -9,7 +9,6 @@ services:
       - 3x-ui-db:/etc/x-ui/
       - 3x-ui-cert:/root/cert/
     networks:
-      - bridge
       - server
     ports:
       - '30000-30050'
@@ -24,7 +23,6 @@ services:
       - vpn-pihole:/etc/pihole
       - vpn-pihole-dnsmasq:/etc/dnsmasq.d
     networks:
-      - bridge
       - server
     restart: unless-stopped
 
@@ -43,7 +41,6 @@ services:
       - public-pihole:/etc/pihole
       - public-pihole-dnsmasq:/etc/dnsmasq.d
     networks:
-      - bridge
       - server
     restart: unless-stopped
 
@@ -56,6 +53,5 @@ volumes:
   public-pihole-dnsmasq:
 
 networks:
-  bridge:
   server:
     external: true
