@@ -31,6 +31,7 @@ services:
     environment:
       TZ: 'Europe/Moscow'
       DNSSEC: 'true'
+      PIHOLE_DNS_:
     cap_add:
       - NET_ADMIN
     ports:
@@ -40,8 +41,7 @@ services:
       - public-pihole:/etc/pihole
       - public-pihole-dnsmasq:/etc/dnsmasq.d
     networks:
-      server:
-        ipv4_address: 10.5.0.5
+      - server
     restart: unless-stopped
 
   dnsproxy-input:
@@ -62,7 +62,7 @@ services:
     image: adguard/dnsproxy
     networks:
       server:
-        ipv4_address: 10.5.0.6
+        ipv4_address: 10.0.1.155
     entrypoint: sh -c "/opt/dnsproxy/dnsproxy --upstream tls://comss.dns.controld.com -l 0.0.0.0"
     volumes:
       - caddy-data:/data
