@@ -10,6 +10,8 @@ services:
       - 3x-ui-cert:/root/cert/
     networks:
       - server
+    ports:
+      - '30000-30050'
     restart: unless-stopped
 
   vpn-pihole:
