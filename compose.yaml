@@ -31,7 +31,6 @@ services:
     environment:
       TZ: 'Europe/Moscow'
       DNSSEC: 'true'
-      PIHOLE_DNS_:
     cap_add:
       - NET_ADMIN
     ports:
@@ -61,8 +60,7 @@ services:
   dnsproxy-output:
     image: adguard/dnsproxy
     networks:
-      server:
-        ipv4_address: 10.0.1.155
+      - server
     entrypoint: sh -c "/opt/dnsproxy/dnsproxy --upstream quic://comss.dns.controld.com -l 0.0.0.0"
     volumes:
       - caddy-data:/data
