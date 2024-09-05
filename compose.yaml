@@ -40,10 +40,12 @@ services:
       - public-pihole:/etc/pihole
       - public-pihole-dnsmasq:/etc/dnsmasq.d
     networks:
-      - server
+      server:
+      vpcbr:
+        ipv4_address: 10.5.0.5
     restart: unless-stopped
 
-  dnsproxy:
+  dnsproxy-input:
     image: adguard/dnsproxy
     networks:
       - server
@@ -54,6 +56,16 @@ services:
       - VIRTUAL_HOST=public.dns.ab.tw1.su
       - LETSENCRYPT_HOST=public.dns.ab.tw1.su
     entrypoint: sh -c "/opt/dnsproxy/dnsproxy --upstream $$(getent hosts public-pihole | awk '{ print $$1 }'):53 --tls-port=853 --tls-crt=/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/public.dns.ab.tw1.su/public.dns.ab.tw1.su.crt --tls-key=/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/public.dns.ab.tw1.su/public.dns.ab.tw1.su.key -l 0.0.0.0"
+    volumes:
+      - caddy-data:/data
+
+  dnsproxy-output:
+    image: adguard/dnsproxy
+    networks:
+      server:
+      vpcbr:
+        ipv4_address: 10.5.0.6
+    entrypoint: sh -c "/opt/dnsproxy/dnsproxy --upstream tls://comss.dns.controld.com -l 0.0.0.0"
     volumes:
       - caddy-data:/data
 
@@ -78,3 +90,9 @@ volumes:
 networks:
   server:
     external: true
+  dns:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
