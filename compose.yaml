@@ -60,6 +60,9 @@ services:
     image: adguard/dnsproxy
     networks:
       - server
+    ports:
+      - "2443:443/tcp"
+      - "2443:443/udp"
     environment:
       - VIRTUAL_HOST=public.dns.ab.tw1.su
       - LETSENCRYPT_HOST=public.dns.ab.tw1.su
