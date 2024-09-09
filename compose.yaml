@@ -42,7 +42,7 @@ services:
       - server
     restart: unless-stopped
 
-  dnsproxy-input:
+  dnsproxy-input-tls:
     image: adguard/dnsproxy
     networks:
       - server
@@ -56,6 +56,17 @@ services:
     volumes:
       - caddy-data:/data
 
+  dnsproxy-input-https:
+    image: adguard/dnsproxy
+    networks:
+      - server
+    environment:
+      - VIRTUAL_HOST=public.dns.ab.tw1.su
+      - LETSENCRYPT_HOST=public.dns.ab.tw1.su
+    entrypoint: sh -c "/opt/dnsproxy/dnsproxy --upstream $$(getent hosts public-pihole | awk '{ print $$1 }'):53 --https-port=443 --tls-crt=/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/public.dns.ab.tw1.su/public.dns.ab.tw1.su.crt --tls-key=/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/public.dns.ab.tw1.su/public.dns.ab.tw1.su.key -l 0.0.0.0"
+    volumes:
+      - caddy-data:/data
+
   dnsproxy-output:
     image: adguard/dnsproxy
     networks:
@@ -65,14 +76,6 @@ services:
       - "2053:53/udp"
     entrypoint: sh -c "/opt/dnsproxy/dnsproxy --upstream tls://comss.dns.controld.com -l 0.0.0.0"
 
-  caddy:
-    image: ghcr.io/alexbidenko/vpn-dns-server/caddy:latest
-    networks:
-      - server
-    volumes:
-      - caddy-data:/data
-      - caddy-config:/config
-
 volumes:
   3x-ui-db:
   3x-ui-cert:
@@ -81,6 +84,8 @@ volumes:
   public-pihole:
   public-pihole-dnsmasq:
   caddy-data:
+    external: true
+    name: caddy-web-server_caddy-data
   caddy-config:
 
 networks:
